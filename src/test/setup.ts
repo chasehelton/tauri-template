@@ -1,6 +1,39 @@
 import '@testing-library/jest-dom'
 import { vi } from 'vitest'
 
+// Provide a working localStorage for jsdom tests.
+// Node 20+ ships a native `localStorage` global that is `undefined` unless the
+// process is launched with --localstorage-file; that undefined value shadows the
+// one jsdom would otherwise supply, so `localStorage.getItem(...)` throws
+// "Cannot read properties of undefined (reading 'getItem')" in components like
+// ThemeProvider. Install a simple in-memory Storage so tests have a real one.
+class MemoryStorage implements Storage {
+  private store = new Map<string, string>()
+  get length() {
+    return this.store.size
+  }
+  clear() {
+    this.store.clear()
+  }
+  getItem(key: string) {
+    return this.store.has(key) ? (this.store.get(key) as string) : null
+  }
+  key(index: number) {
+    return Array.from(this.store.keys())[index] ?? null
+  }
+  removeItem(key: string) {
+    this.store.delete(key)
+  }
+  setItem(key: string, value: string) {
+    this.store.set(key, String(value))
+  }
+}
+Object.defineProperty(window, 'localStorage', {
+  writable: true,
+  configurable: true,
+  value: new MemoryStorage(),
+})
+
 // Mock matchMedia for tests
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
