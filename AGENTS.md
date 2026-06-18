@@ -133,7 +133,6 @@ These are specific to Claude Code but documented here for context.
 - `/init` - One-time template initialization (includes package manager selection)
 - `/check` - Check work against architecture, run `npm run check:all`, suggest commit message
 - `/cleanup` - Run static analysis (knip, jscpd, check:all), get structured recommendations
-- `/change-package-manager <bun|pnpm|npm>` - Switch package manager across all config, scripts, docs, CI, and AI instructions
 
 ### Agents
 

@@ -44,11 +44,9 @@ After receiving their input:
 11. **Update `docs/CONTRIBUTING.md`**:
     - Replace `YOUR_USERNAME/YOUR_REPO` with their GitHub username and repo name
 
-## Step 3: Switch Package Manager (if needed)
+## Step 3: Package Manager
 
-If the user chose `bun` or `pnpm` (anything other than `npm`), run `/change-package-manager <chosen-pm>` to update all references across the project.
-
-If they chose `npm` (the default), skip this step.
+This template uses **npm** (see AGENTS.md). No action needed.
 
 ## Step 4: Verify
 
